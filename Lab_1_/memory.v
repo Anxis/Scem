@@ -20,8 +20,10 @@ module memory(
       $readmemh("./sw/test.rom", mem);      
    end
    
-   
-   assign rdata = r_en ? mem[addr] : 0;
+   reg [31:0] rdata_reg;
+   always @(posedge clk)
+     rdata_reg <= r_en ? mem[addr] : 0;
+   assign rdata = rdata_reg;
 
    always @(posedge clk)
      begin
